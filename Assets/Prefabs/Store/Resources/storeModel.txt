@@ -6,16 +6,47 @@
       {
         "$type": "Assets.Scripts.Store.CurrencyItem, Assembly-CSharp",
         "amount": 10,
-        "key": "item1",
-        "price": 1.2,
-        "currency": "f"
+        "key": "gold",
+        "price": 1.29,
+        "currency": "$"
       },
       {
-        "$type": "Assets.Scripts.Store.CurrencyItem, Assembly-CSharp",
-        "amount": 20,
-        "key": "item2",
-        "price": 5.2,
-        "currency": "a"
+        "$type": "Assets.Scripts.Store.ArtifactItem, Assembly-CSharp",
+        "stats": {
+          "$type": "System.Collections.Generic.Dictionary`2[[Assets.Scripts.PlayerResources.PlayerStat, Assembly-CSharp],[System.Int32, mscorlib]], mscorlib",
+          "Damage": 10
+        },
+        "key": "sword",
+        "price": 5.0,
+        "currency": "$"
+      },
+      {
+        "$type": "Assets.Scripts.Store.ItemsPack, Assembly-CSharp",
+        "items": {
+          "$type": "System.Collections.Generic.List`1[[Assets.Scripts.Store.ItemModel, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "Assets.Scripts.Store.CurrencyItem, Assembly-CSharp",
+              "amount": 10,
+              "key": "gold",
+              "price": 1.29,
+              "currency": "$"
+            },
+            {
+              "$type": "Assets.Scripts.Store.ArtifactItem, Assembly-CSharp",
+              "stats": {
+                "$type": "System.Collections.Generic.Dictionary`2[[Assets.Scripts.PlayerResources.PlayerStat, Assembly-CSharp],[System.Int32, mscorlib]], mscorlib",
+                "Damage": 10
+              },
+              "key": "sword",
+              "price": 5.0,
+              "currency": "$"
+            }
+          ]
+        },
+        "key": "pack",
+        "price": 10.99,
+        "currency": "$"
       }
     ]
   }

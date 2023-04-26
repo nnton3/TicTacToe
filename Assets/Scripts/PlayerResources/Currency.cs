@@ -1,9 +1,12 @@
 ﻿namespace Assets.Scripts.PlayerResources
 {
-    public class Currency : PlayerResource
+    public class Gold : PlayerResource
     {
-        public int gold;
-        public int silver;
-        public int bronze;
+        public int amount;
+    }
+
+    public class Silver : PlayerResource 
+    {
+        public int amount;
     }
 }

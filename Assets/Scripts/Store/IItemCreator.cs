@@ -1,7 +1,9 @@
-﻿namespace Assets.Scripts.Store
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Store
 {
     public interface IItemCreator
     {
-        ItemView CreateItem(ItemModel itemData);
+        ItemView CreateItem(ItemModel itemData, Transform parent);
     }
 }

@@ -9,6 +9,7 @@ namespace Assets.Scripts.Store
     {
         [SerializeField] private GameObject _view;
         [SerializeField] private Button _openBtn, _closeBtn;
+        [SerializeField] private Transform _itemsParent;
         private IStoreItemsProvider _itemsProvider;
         private IScreenBlockerService _screenBlocker;
         private IItemCreator _itemCreator;
@@ -40,10 +41,7 @@ namespace Assets.Scripts.Store
             _screenBlocker.Hide();
             _view.SetActive(true);
             foreach (var item in model.shopItems)
-                _itemViews.Add(
-                    _itemCreator
-                    .CreateItem(item)
-                    .GetComponent<ItemView>());
+                _itemViews.Add(_itemCreator.CreateItem(item, _itemsParent));
         }
 
         private void GetItemsFailHandler()

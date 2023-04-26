@@ -626,6 +626,8 @@ GameObject:
   - component: {fileID: 1341195514}
   - component: {fileID: 1341195515}
   - component: {fileID: 1341195516}
+  - component: {fileID: 1341195517}
+  - component: {fileID: 1341195518}
   m_Layer: 0
   m_Name: Services
   m_TagString: Untagged
@@ -661,6 +663,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currencyItemCreator: {fileID: 1341195516}
+  _artifactItemCreator: {fileID: 1341195517}
+  _packCreator: {fileID: 1341195518}
   _parent: {fileID: 5749550391584316954}
 --- !u!114 &1341195515
 MonoBehaviour:
@@ -677,6 +681,7 @@ MonoBehaviour:
   _view: {fileID: 5749550391584316953}
   _openBtn: {fileID: 268424006}
   _closeBtn: {fileID: 5749550391584316952}
+  _itemsParent: {fileID: 5749550391584316954}
 --- !u!114 &1341195516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +695,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pref: {fileID: 773737040255741962, guid: ecddf8ff56cfa1c4c90a70d6bd4492ea, type: 3}
-  _parent: {fileID: 5749550391584316954}
+--- !u!114 &1341195517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341195512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca53f3a33709d640b67c2131c910edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pref: {fileID: 3798383583576031560, guid: 7dcb91e1ae7c7374ea31a652a9e0d39c, type: 3}
+--- !u!114 &1341195518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341195512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216778794ca4a34479d0583252142379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _creator: {fileID: 1341195514}
+  _pref: {fileID: 5440134197147503027, guid: 5c937d0b8ddeabb4a851eb602252e579, type: 3}
 --- !u!1 &1562427138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,6 +1242,10 @@ PrefabInstance:
     - target: {fileID: 2659076379813215713, guid: a344495095d9ae64fbeb1be33a21e998, type: 3}
       propertyPath: m_Name
       value: StorePage
+      objectReference: {fileID: 0}
+    - target: {fileID: 2659076379813215713, guid: a344495095d9ae64fbeb1be33a21e998, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8903069610136839141, guid: a344495095d9ae64fbeb1be33a21e998, type: 3}
       propertyPath: m_Pivot.x
