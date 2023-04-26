@@ -1,0 +1,22 @@
+{
+  "$type": "Assets.Scripts.Store.StoreModel, Assembly-CSharp",
+  "shopItems": {
+    "$type": "System.Collections.Generic.List`1[[Assets.Scripts.Store.ItemModel, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "Assets.Scripts.Store.CurrencyItem, Assembly-CSharp",
+        "amount": 10,
+        "key": "item1",
+        "price": 1.2,
+        "currency": "f"
+      },
+      {
+        "$type": "Assets.Scripts.Store.CurrencyItem, Assembly-CSharp",
+        "amount": 20,
+        "key": "item2",
+        "price": 5.2,
+        "currency": "a"
+      }
+    ]
+  }
+}
