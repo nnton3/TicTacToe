@@ -18,6 +18,7 @@ namespace Assets.Scripts.Store
             _currency.text = specialData.currency.ToString();
             _artifactName.text = specialData.key;
             _img.sprite = Resources.Load<Sprite>(data.key);
+            _key = data.key;
 
             foreach (var stat in specialData.stats)
             {

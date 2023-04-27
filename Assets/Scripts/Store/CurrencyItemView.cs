@@ -16,6 +16,7 @@ namespace Assets.Scripts.Store
             _currency.text = specialData.currency.ToString();
             _amount.text = specialData.amount.ToString();
             _img.sprite = Resources.Load<Sprite>(data.key);
+            _key = data.key;
         }
     }
 }

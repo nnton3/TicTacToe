@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Store
         private IScreenBlockerService _screenBlocker;
         private IItemCreator _itemCreator;
         private List<ItemView> _itemViews;
+        private bool _storeInited;
 
         private void Awake()
         {
@@ -32,19 +34,25 @@ namespace Assets.Scripts.Store
 
         public void Init()
         {
-            _itemsProvider.GetItems(GetItemsCompleteHandler, GetItemsFailHandler);
+            _itemsProvider.LoadItems(LoadItemsCompleteHandler, LoadItemsFailHandler);
         }
 
-        private void GetItemsCompleteHandler(StoreModel model)
+        private void LoadItemsCompleteHandler(StoreModel model)
         {
             Debug.Log($"Store model was loaded");
             _screenBlocker.Hide();
             _view.SetActive(true);
             foreach (var item in model.shopItems)
-                _itemViews.Add(_itemCreator.CreateItem(item, _itemsParent));
+            {
+                var itemView = _itemCreator.CreateItem(item, _itemsParent);
+                itemView.OnClickPurchase += PurchaseHandler;
+                _itemViews.Add(itemView);
+            }
+
+            _storeInited = true;
         }
 
-        private void GetItemsFailHandler()
+        private void LoadItemsFailHandler()
         {
             Debug.Log($"Store model load failed");
             _screenBlocker.Hide();
@@ -52,13 +60,27 @@ namespace Assets.Scripts.Store
 
         private void OpenBtnHandler()
         {
-            _screenBlocker.Show();
-            Init();
+            if (_storeInited)
+            {
+                _view.SetActive(true);
+            }
+            else
+            {
+                _screenBlocker.Show();
+                Init();
+            }
         }
 
         private void CloseBtnHandler()
         {
             _view.SetActive(false);
+        }
+
+        private void PurchaseHandler(object view, string itemKey)
+        {
+            Debug.Log($"You purchased {itemKey}");
+            //Save purchased items here
+            Destroy((view as MonoBehaviour).gameObject);
         }
     }
 }

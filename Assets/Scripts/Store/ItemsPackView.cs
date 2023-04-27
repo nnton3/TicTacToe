@@ -7,10 +7,11 @@ namespace Assets.Scripts.Store
         public Transform ItemsParent => _parent;
         [SerializeField] private Transform _parent;
 
-        public override void Init(ItemModel model)
+        public override void Init(ItemModel data)
         {
-            _price.text = model.price.ToString();       
-            _currency.text = model.currency;
+            _price.text = data.price.ToString();       
+            _currency.text = data.currency;
+            _key = data.key;
         }
     }
 }

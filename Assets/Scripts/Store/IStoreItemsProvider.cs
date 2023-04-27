@@ -4,6 +4,6 @@ namespace Assets.Scripts.Store
 {
     public interface IStoreItemsProvider
     {
-        void GetItems(Action<StoreModel> onComplete, Action onFail);
+        void LoadItems(Action<StoreModel> onComplete, Action onFail);
     }
 }

@@ -9,7 +9,7 @@ namespace Assets.Scripts.Store
 {
     public class MockStoreItemsProvider : IStoreItemsProvider
     {
-        public async void GetItems(Action<StoreModel> onComplete, Action onFail)
+        public async void LoadItems(Action<StoreModel> onComplete, Action onFail)
         {
             await Task.Delay(1000);
 
