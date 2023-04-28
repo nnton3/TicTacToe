@@ -34,7 +34,8 @@ namespace Assets.Scripts.Core
                 for (int i = 0; i < args.Length; i++)
                     argsMethod[i] = Resolve(args[i].ParameterType);
 
-                return injectMethod.Invoke(instance, argsMethod);
+                injectMethod.Invoke(instance, argsMethod);
+                return instance;
             }
             else
             {

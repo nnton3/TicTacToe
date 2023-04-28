@@ -1,12 +1,14 @@
-﻿using Assets.Scripts.DependencyInjection;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.DependencyInjection;
 using Assets.Scripts.Store;
 using UnityEngine;
 
-namespace Assets.Scripts.Core
+namespace Assets.Scripts.Gameplay
 {
-    public class MainMenuSceneContext : DependencyContext
+    public class GameplayContext : DependencyContext
     {
-        [SerializeField] private ItemCreator _storeItemCreator;
+        [SerializeField] private CrossZeroSpawner _spawner;
+        [SerializeField] private BoardView _boardView;
 
         protected override void Inject(IContainer container)
         {
@@ -20,8 +22,10 @@ namespace Assets.Scripts.Core
             IContainerBuilder builder = new MainContainerBuilder();
             builder
                 .RegistryContainer(ProjectContext.Container)
-                .RegisterTransient<IStoreItemsProvider, MockStoreItemsProvider>()
-                .RegisterMonoService<IItemCreator>(_storeItemCreator);
+                .RegisterSingleton<IBoard, Board>()
+                .RegisterMonoService<ICrossZeroSpawner>(_spawner)
+                .RegisterMonoService<IBoardView>(_boardView)
+                ;
 
             return builder.Build();
         }
