@@ -14,9 +14,9 @@ namespace Assets.Scripts.Core
         {
             IContainerBuilder builder = new MainContainerBuilder();
             builder
-                .RegisterMonoService<ILoadScreenService>(_loadScreen)
-                .RegisterMonoService<ISceneLoadService>(_sceneLoader)
-                .RegisterMonoService<IScreenBlockerService>(_screenBlocker);
+                .RegisterSingetone<ILoadScreenService>(_loadScreen)
+                .RegisterSingetone<ISceneLoadService>(_sceneLoader)
+                .RegisterSingetone<IScreenBlockerService>(_screenBlocker);
             
             return builder.Build();
         }

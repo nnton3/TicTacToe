@@ -2,24 +2,30 @@
 
 namespace Assets.Scripts.DependencyInjection
 {
+
     public abstract class ServiceDescriptor
     {
         public Type ServiceType { get; set; }
     }
 
-    public class MonoServiceDescriptor : ServiceDescriptor
+    public class TypeBaseServiceDescriptor : ServiceDescriptor
     {
+        public Type ImplementationType { get; }
         public object Instance { get; set; }
+        public bool IsSingletone { get; }
 
-        public MonoServiceDescriptor(Type serviceType, object instance)
+        public TypeBaseServiceDescriptor(Type serviceType, Type serviceImplementation, bool isSingletone)
+        {
+            ServiceType = serviceType;
+            ImplementationType = serviceImplementation;
+            IsSingletone = isSingletone;
+        }
+
+        public TypeBaseServiceDescriptor(Type serviceType, object instance, bool isSingletone)
         {
             ServiceType = serviceType;
             Instance = instance;
+            IsSingletone = isSingletone;
         }
-    }
-
-    public class TypeBaseServiceDescriptor : ServiceDescriptor
-    {
-        public Type ImplementationType { get; set; }
     }
 }

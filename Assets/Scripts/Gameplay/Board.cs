@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Immutable;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay
 {
     public class Board : IBoard
     {
-        private Dictionary<Vector2Int, FigureType> _places;
+        public FigureType[][] PlacesMatrix => _placesMatrix;
+        private FigureType[][] _placesMatrix;
         private ICrossZeroSpawner _spawner;
-        private readonly int _boardSize = 9, _lineSize = 3;
+        private readonly int _lineSize = 3;
 
         public Board()
         {
-            _places = new Dictionary<Vector2Int, FigureType>(_boardSize);
-            for (int i = 0; i < _boardSize; i++)
+            _placesMatrix = new FigureType[_lineSize][];
+            for (int i = 0; i < _lineSize; i++)
             {
-                var pos = new Vector2Int(i % _lineSize, i / _lineSize);
-                _places.Add(pos, FigureType.None);
+                _placesMatrix[i] = new FigureType[_lineSize]; 
+                for (int j = 0; j < _lineSize; j++)
+                    _placesMatrix[i][j] = FigureType.None;
             }
         }
 
@@ -27,11 +28,20 @@ namespace Assets.Scripts.Gameplay
 
         public void FillPlace(Vector2Int pos, FigureType type)
         {
-            _places[pos] = type;
+            _placesMatrix[pos.x][pos.y] = type;
             _spawner.Spawn(pos, type);
         }
 
-        public bool IsPlaceFree(Vector2Int pos) => _places[pos] == FigureType.None;
-        public Vector2Int GetFreePosition() => _places.First(p => p.Value == FigureType.None).Key;
+        public bool IsPlaceFree(Vector2Int pos) => _placesMatrix[pos.x][pos.y] == FigureType.None;
+        
+        public Vector2Int GetFreePosition()
+        {
+            for (int i = 0; i < _lineSize; i++)
+                for (int j = 0; j < _lineSize; j++)
+                    if (_placesMatrix[i][j] == FigureType.None)
+                        return new Vector2Int(i, j);
+
+            return new Vector2Int(-1, -1);
+        }
     }
 }

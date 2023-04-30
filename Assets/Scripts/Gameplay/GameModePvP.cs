@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay
@@ -10,11 +11,13 @@ namespace Assets.Scripts.Gameplay
         private IPlayer _currentPlayerTurn;
         private IBoard _board;
         private IBoardView _boardView;
+        private IWinConditionChecker _winChecker;
 
-        public void Inject(IBoard board, IBoardView boardView)
+        public void Inject(IBoard board, IBoardView boardView, IWinConditionChecker winChecker)
         {
             _board = board;
             _boardView = boardView;
+            _winChecker = winChecker;
         }
 
         private void Awake()
@@ -22,8 +25,8 @@ namespace Assets.Scripts.Gameplay
             _player1 = new HumanPlayer(_board, _boardView);
             _player2 = new HumanPlayer(_board, _boardView);
 
-            _player1.OnTurnEnd += SwapTurn;
-            _player2.OnTurnEnd += SwapTurn;
+            _player1.OnTurnEnd += EndTurnHandler;
+            _player2.OnTurnEnd += EndTurnHandler;
 
             SelectFirst();
             StartGame();
@@ -52,7 +55,19 @@ namespace Assets.Scripts.Gameplay
             _currentPlayerTurn.StartTurn();
         }
 
-        private void SwapTurn(object sender, EventArgs e)
+        private void EndTurnHandler(object sender, Vector2Int pos)
+        {
+            if (_winChecker.IsWinConditionAchived(pos))
+            {
+                Debug.Log($"{(sender as IPlayer).FigureType} is Winner");
+            }
+            else
+            {
+                SwapTurn();
+            }
+        }
+
+        private void SwapTurn()
         {
             _currentPlayerTurn = (_currentPlayerTurn == _player1) ? _player2 : _player1;
             var currentPlayerName = _currentPlayerTurn == _player1 ? "_player2" : "_player1";

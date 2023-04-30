@@ -4,30 +4,41 @@ namespace Assets.Scripts.DependencyInjection
 {
     public static class ContainerBuilderExtension
     {
-        private static IContainerBuilder RegisterType(IContainerBuilder builder, Type serviceInterface, Type serviceImplementation)
+        private static IContainerBuilder RegisterTransientType(IContainerBuilder builder, Type serviceType, Type serviceImplementation)
         {
-            builder.Register(new TypeBaseServiceDescriptor
-            {
-                ImplementationType = serviceImplementation,
-                ServiceType = serviceInterface,
-            });
+            builder.Register(new TypeBaseServiceDescriptor(
+                serviceType,
+                serviceImplementation,
+                false
+                ));
             return builder;
         }
-
-        public static IContainerBuilder RegisterSingleton<IService, IImplementation>(this IContainerBuilder builder) where IImplementation : IService =>
-            RegisterType(builder, typeof(IService), typeof(IImplementation));
 
         public static IContainerBuilder RegisterTransient<IService, IImplementation>(this IContainerBuilder builder) where IImplementation : IService =>
-            RegisterType(builder, typeof(IService), typeof(IImplementation));
+            RegisterTransientType(builder, typeof(IService), typeof(IImplementation));
 
-        private static IContainerBuilder RegisterMonoInstance(this IContainerBuilder builder, Type service, object instance)
+        private static IContainerBuilder RegisterSingletoneType(IContainerBuilder builder, Type serviceType, object instance)
         {
-            builder.Register(new MonoServiceDescriptor(service, instance));
+            builder.Register(new TypeBaseServiceDescriptor(
+                serviceType,
+                instance,
+                true
+            ));
             return builder;
         }
 
-        public static IContainerBuilder RegisterMonoService<IService>(this IContainerBuilder builder, object instance) =>
-            RegisterMonoInstance(builder, typeof(IService), instance);
+        public static IContainerBuilder RegisterSingleton<IService, IImplementation>(this IContainerBuilder builder) where IImplementation : IService
+        {
+            builder.Register(new TypeBaseServiceDescriptor(
+                typeof(IService), 
+                typeof(IImplementation),
+                true
+            ));
+            return builder;
+        }
+
+        public static IContainerBuilder RegisterSingetone<IService>(this IContainerBuilder builder, object instance) =>
+            RegisterSingletoneType(builder, typeof(IService), instance);
 
         public static IContainerBuilder RegistryContainer(this IContainerBuilder builder, IContainer container)
         {

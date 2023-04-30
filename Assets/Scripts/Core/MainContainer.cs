@@ -20,13 +20,24 @@ namespace Assets.Scripts.Core
             if (!_descriptors.TryGetValue(service, out var descriptor))
                 throw new InvalidOperationException($"Service {service} is not registered");
 
-            if (descriptor is MonoServiceDescriptor msd)
-                return msd.Instance;
+            var td = descriptor as TypeBaseServiceDescriptor;
 
-            var tb = (TypeBaseServiceDescriptor)descriptor;
+            if (td.IsSingletone)
+            {
+                if (td.Instance == null)
+                    td.Instance = CreateInstance(td.ImplementationType);
+                return td.Instance;
+            }
+            else
+            {
+                return CreateInstance(td.ImplementationType);
+            }
+        }
 
-            var instance = Activator.CreateInstance(tb.ImplementationType);
-            var injectMethod = tb.ImplementationType.GetMethod("Inject");
+        private object CreateInstance(Type instanceType)
+        {
+            var instance = Activator.CreateInstance(instanceType);
+            var injectMethod = instanceType.GetMethod("Inject");
             if (injectMethod != null)
             {
                 var args = injectMethod.GetParameters();

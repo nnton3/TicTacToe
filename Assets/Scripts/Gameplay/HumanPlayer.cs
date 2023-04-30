@@ -7,8 +7,8 @@ namespace Assets.Scripts.Gameplay
     public class HumanPlayer : IPlayer, IDisposable
     {
         public bool IsActive => _isActive;
-
-        public event EventHandler OnTurnEnd;
+        public FigureType FigureType => _figureType;
+        public event EventHandler<Vector2Int> OnTurnEnd;
         private bool _isActive;
         private IBoard _board;
         private IBoardView _boardView;
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Gameplay
 
             await Task.Delay(500);
 
-            OnTurnEnd?.Invoke(this, new EventArgs());
+            OnTurnEnd?.Invoke(this, pos);
         }
 
         public void StartTurn()

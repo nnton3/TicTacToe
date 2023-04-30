@@ -23,8 +23,9 @@ namespace Assets.Scripts.Gameplay
             builder
                 .RegistryContainer(ProjectContext.Container)
                 .RegisterSingleton<IBoard, Board>()
-                .RegisterMonoService<ICrossZeroSpawner>(_spawner)
-                .RegisterMonoService<IBoardView>(_boardView)
+                .RegisterSingetone<ICrossZeroSpawner>(_spawner)
+                .RegisterSingetone<IBoardView>(_boardView)
+                .RegisterSingleton<IWinConditionChecker, WinConditionChecker>()
                 ;
 
             return builder.Build();
