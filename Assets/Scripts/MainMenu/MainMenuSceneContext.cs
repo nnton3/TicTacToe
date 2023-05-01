@@ -22,7 +22,7 @@ namespace Assets.Scripts.MainMenu
             builder
                 .RegistryContainer(ProjectContext.Container)
                 .RegisterTransient<IStoreItemsProvider, MockStoreItemsProvider>()
-                .RegisterSingetone<IItemCreator>(_storeItemCreator);
+                .RegisterSingleton<IItemCreator>(_storeItemCreator);
 
             return builder.Build();
         }

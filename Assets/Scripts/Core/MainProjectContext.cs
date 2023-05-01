@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DependencyInjection;
 using Assets.Scripts.Services;
+using Assets.Scripts.UI.NotificationWindow;
 using UnityEngine;
 
 namespace Assets.Scripts.Core
@@ -7,16 +8,19 @@ namespace Assets.Scripts.Core
     public class MainProjectContext : ProjectContext
     {
         [SerializeField] private LoadScreenService _loadScreen;
-        [SerializeField] private SceneLoadService _sceneLoader;
         [SerializeField] private ScreenBlockerService _screenBlocker;
+        [SerializeField] private NotificationWindowView _notificationWindowView;
 
         protected override IContainer Setup()
         {
             IContainerBuilder builder = new MainContainerBuilder();
             builder
-                .RegisterSingetone<ILoadScreenService>(_loadScreen)
-                .RegisterSingetone<ISceneLoadService>(_sceneLoader)
-                .RegisterSingetone<IScreenBlockerService>(_screenBlocker);
+                .RegisterSingleton<ILoadScreenService>(_loadScreen)
+                .RegisterSingleton<ISceneLoadService, SceneLoadService>()
+                .RegisterSingleton<IScreenBlockerService>(_screenBlocker)
+                .RegisterSingleton<INotificationWindowView>(_notificationWindowView)
+                .RegisterSingleton<INotificationWindowService, NotificationWindowService>()
+                ;
             
             return builder.Build();
         }

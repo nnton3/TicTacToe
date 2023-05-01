@@ -37,7 +37,7 @@ namespace Assets.Scripts.DependencyInjection
             return builder;
         }
 
-        public static IContainerBuilder RegisterSingetone<IService>(this IContainerBuilder builder, object instance) =>
+        public static IContainerBuilder RegisterSingleton<IService>(this IContainerBuilder builder, object instance) =>
             RegisterSingletoneType(builder, typeof(IService), instance);
 
         public static IContainerBuilder RegistryContainer(this IContainerBuilder builder, IContainer container)
